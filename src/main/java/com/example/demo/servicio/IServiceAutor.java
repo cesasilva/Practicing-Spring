@@ -1,5 +1,6 @@
 package com.example.demo.servicio;
 
+import com.example.demo.dto.AutorLibroDTO;
 import com.example.demo.model.Autor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,6 @@ public interface IServiceAutor {
 
     Autor findById(UUID uuid);
 
-
+    void createAutorLibro (AutorLibroDTO autorLibroDTO);
 
 }

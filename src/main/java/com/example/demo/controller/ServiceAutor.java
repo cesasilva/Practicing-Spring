@@ -13,33 +13,34 @@ import java.util.UUID;
 public class ServiceAutor {
 
     @Autowired
-    private IServiceAutor serviceAutor;
+    private IServiceAutor service;
 
     @GetMapping("/all")
     public List<Autor> getAll() {
-        return serviceAutor.getAll();
+        return service.getAll();
     }
 
     //Datos a guardar o actualizar tienen que ir con un post
 
+    // Request body, transforma de un JSON a un objeto Autor
     @PostMapping("/create")
     public void createAutor(@RequestBody Autor autor) {
-        serviceAutor.save(autor);
+        service.save(autor);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteAutor(@PathVariable("id") UUID id) {
-        serviceAutor.delete(id);
+        service.delete(id);
     }
 
     @PutMapping("/update")
     public Autor updateAutor(@RequestBody Autor autor) {
-        return serviceAutor.update(autor);
+        return service.update(autor);
     }
 
     @GetMapping("/{id}")
     public Autor findById(@PathVariable("id") UUID id) {
-        return serviceAutor.findById(id);
+        return service.findById(id);
     }
 
 }

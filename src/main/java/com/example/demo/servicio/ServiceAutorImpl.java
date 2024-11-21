@@ -1,8 +1,10 @@
 package com.example.demo.servicio;
 
 
+import com.example.demo.dto.AutorLibroDTO;
 import com.example.demo.model.Autor;
 import com.example.demo.repository.IAuthorRepo;
+import com.example.demo.repository.ILibroRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,30 +15,41 @@ import java.util.UUID;
 public class ServiceAutorImpl implements IServiceAutor{
 
     @Autowired
-    private IAuthorRepo repo;
+    private IAuthorRepo repoAutor;
+
+    @Autowired
+    private ILibroRepo repoLibro;
 
     @Override
     public List<Autor> getAll() {
-        return repo.findAll();
+        return repoAutor.findAll();
     }
 
     @Override
     public void save(Autor autor) {
-        repo.save(autor);
+        repoAutor.save(autor);
     }
 
     @Override
     public void delete(UUID uuid) {
-        repo.deleteById(uuid);
+        repoAutor.deleteById(uuid);
     }
 
     @Override
     public Autor update(Autor autor) {
-        return repo.save(autor);
+        return repoAutor.save(autor);
     }
 
     @Override
     public Autor findById(UUID uuid) {
-        return repo.findById(uuid).get();
+        return repoAutor.findById(uuid).get();
+    }
+
+    @Override
+    public void createAutorLibro(AutorLibroDTO autorLibroDTO) {
+        Autor autor = repoAutor.findById(autorLibroDTO.getAutorDTO().getId()).get();
+        if (autor == null) {
+            repoAutor.save(autor);
+        }
     }
 }
